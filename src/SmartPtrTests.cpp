@@ -4,6 +4,10 @@
 
 using namespace std;
 
+/*
+ * Unique pointer: Function return
+ *
+ * */
 unique_ptr<TestClass> GetUPtr(){
     std::cout << "###GetUPtr() in" << std::endl;
 
@@ -16,15 +20,21 @@ unique_ptr<TestClass> GetUPtr(){
     // return rtnUPtr; // 3
 }
 
-void FunctionReturnTest(){
-    std::cout << "##FunctionReturnTest() in" << std::endl;
+void UptrFunctionReturnTest(){
+    std::cout << "##UptrFunctionReturnTest() in" << std::endl;
 
     unique_ptr<TestClass> uPtr = GetUPtr(); // 1
     // unique_ptr<TestClass> uPtr = GetUPtr(); // 2
     // unique_ptr<TestClass> uPtr = move(GetUPtr()); // 3
 
-    std::cout << "##FunctionReturnTest() out" << std::endl;
+    std::cout << "##UptrFunctionReturnTest() out" << std::endl;
 }
+
+
+/*
+ * Unique pointer: Function input
+ *
+ * */
 
 void SetUPtr(unique_ptr<TestClass> iUptr){
     std::cout << "###SetUPtr() in" << std::endl;
@@ -32,8 +42,8 @@ void SetUPtr(unique_ptr<TestClass> iUptr){
     std::cout << "###SetUPtr() out" << std::endl;
 }
 
-void FunctionInputTest(){
-    std::cout << "##FunctionInputTest() in" << std::endl;
+void UptrFunctionInputTest(){
+    std::cout << "##UptrFunctionInputTest() in" << std::endl;
 
     unique_ptr<TestClass> uPtr = unique_ptr<TestClass>(new TestClass(""));
 
@@ -41,10 +51,16 @@ void FunctionInputTest(){
 
     cout << "UHUHU" << endl;
 
-    std::cout << "##FunctionInputTest() out" << std::endl;
+    std::cout << "##UptrFunctionInputTest() out" << std::endl;
 }
 
-void CommonTest(){
+/*
+ * Unique pointer: Common test
+ *
+ * */
+
+void UptrCommonTest(){
+    std::cout << "##UptrCommonTest() in" << std::endl;
 
     // Release Test
     unique_ptr<TestClass> uPtr = unique_ptr<TestClass>(new TestClass("C"));
@@ -57,20 +73,29 @@ void CommonTest(){
     /* Wrong: Memory Leak*/
     //uPtr.release();
 
+    // Reset Test
+    unique_ptr<TestClass> uPtr2 = unique_ptr<TestClass>(new TestClass("D"));
+
+    uPtr2.reset();
+
+    uPtr2 = unique_ptr<TestClass>(new TestClass("E"));
+
+    std::cout << "##UptrCommonTest() out" << std::endl;
+
 }
 
 int main() {
     std::cout << "#main() in" << std::endl;
 
-    FunctionReturnTest();
+    UptrFunctionReturnTest();
 
     cout << endl;
 
-    FunctionInputTest();
+    UptrFunctionInputTest();
 
     cout << endl;
 
-    CommonTest();
+    UptrCommonTest();
 
 
     std::cout << "#main() out" << std::endl;
